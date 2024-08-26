@@ -55,42 +55,65 @@ function getHumanChoice() {
    */
   return y;
 }
-/*
- * last function is play round to actually play the game
- */
-function playRound(humanChoice, computerChoice) {
-  /*
-   * we made and if statement to compare between choices we used all human possible choices to win
-   * if his choice wasn't around those he will lose and computer wins and accroding to the winner
-   * we generate a messeage to the winner and increment winner score
-   * if it's a tie it prints it's a tie 
-   */
-  if (humanChoice == computerChoice) {
-    console.log("It's a tie");
-  } else if (humanChoice == "rock" && computerChoice == "scissors") {
-    console.log("You Won, Rock beats Scissors");
-    humanScore++;
-  } else if (humanChoice == "paper" && computerChoice == "rock") {
-    console.log("You Won, Paper beats Rock");
-    humanScore++;
-  } else if (humanChoice == "scissors" && computerChoice == "paper") {
-    console.log("You Won, Scissors beats Paper");
-    humanScore++;
-  } else {
-    console.log("You lost, " + computerChoice + " beats " + humanChoice);
-    computerScore++;
+
+function playGame() {
+  function playRound(humanChoice, computerChoice) {
+    /*
+     * we made and if statement to compare between choices we used all human possible choices to win
+     * if his choice wasn't around those he will lose and computer wins and accroding to the winner
+     * we generate a messeage to the winner and increment winner score
+     * if it's a tie it prints it's a tie
+     */
+    if (humanChoice == computerChoice) {
+      console.log("It's a tie");
+    } else if (
+      (humanChoice == "rock" && computerChoice == "scissors") ||
+      (humanChoice == "paper" && computerChoice == "rock") ||
+      (humanChoice == "scissors" && computerChoice == "paper")
+    ) {
+      console.log("You Won, " + humanChoice + " beats " + computerChoice);
+      humanScore++;
+    } else {
+      console.log("You lost, " + computerChoice + " beats " + humanChoice);
+      computerScore++;
+    }
   }
+  /*
+   * two variables to hold scores
+   */
+  let humanScore = 0;
+  let computerScore = 0;
+  /*
+   * this for loop so i can pkay the game in 5 rounds i made the other functions recalled multiple times
+    * not just the playround function so we get different choices each round
+  */
+  for (let i = 5; i > 0; i--) {
+    /*
+    * variables to hold the choices from functions
+    */
+    const humanChoice = getHumanChoice();
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+  }
+  /*
+  * in order to display a winner accroding to the score we made an if statement to compare and display
+  * a winner according to the highest score
+  */
+  if (humanScore > computerScore){
+    console.log('Congrats You Won!')
+    console.log("Scores  \nYour Score : "+humanScore+"\nComputer Score : "+ computerScore)
+  }
+  else if (humanScore < computerScore){
+    console.log('You lost!')
+    console.log("Scores  \nYour Score : "+humanScore+"\nComputer Score : "+ computerScore)
+  }
+  else{
+    console.log("it's a tie ")
+    console.log("Scores  \nYour Score : "+humanScore+"\nComputer Score : "+ computerScore)
+  }
+  
 }
-
 /*
- * two variables to hold scores
- */
-let humanScore = 0;
-let computerScore = 0;
-/*
- * variables to save human and computer choices and assign them to the function
- */
-const humanChoice = getHumanChoice();
-const computerChoice = getComputerChoice();
-
-playRound(humanChoice, computerChoice);
+* we calling the function so ecverything starts
+*/
+playGame();
